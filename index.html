@@ -773,6 +773,26 @@
                   </div>
                 </div>
               </form>
+              <script>
+                document.getElementById("contact-form").addEventListener("submit", async function (event) {
+                  event.preventDefault();
+              
+                  const formData = {
+                    name: event.target.name.value,
+                    email: event.target.email.value,
+                    message: event.target.message.value,
+                  };
+              
+                  const response = await fetch("/.netlify/functions/sendMail", {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                    headers: { "Content-Type": "application/json" },
+                  });
+              
+                  const result = await response.json();
+                  alert(result.message || result.error);
+                });
+              </script>
               <!-- Contact Form End -->
 
             </div>
@@ -928,8 +948,6 @@
 
     </div>
 
-    <!-- Link JavaScript -->
-    <script src="js/script.js"></script>
     <!-- Load Scripts Start -->
     <script src="js/libs.min.js"></script>
     <script>
