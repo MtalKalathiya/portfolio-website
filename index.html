@@ -778,9 +778,11 @@
                   event.preventDefault();
               
                   const formData = {
-                    name: event.target.name.value,
-                    email: event.target.email.value,
-                    message: event.target.message.value,
+                    name: event.target["Name"].value,
+                    company: event.target["Company"].value,
+                    email: event.target["E-mail"].value,
+                    phone: event.target["Phone"].value,
+                    message: event.target["Message"].value,
                   };
               
                   const response = await fetch("/.netlify/functions/sendMail", {
