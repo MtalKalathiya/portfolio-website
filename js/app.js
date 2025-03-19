@@ -305,24 +305,31 @@ $(function() {
   // --------------------------------------------- //
   // Contact Form Start
   // --------------------------------------------- //
-  $("#contact-form").submit(function() { //Change
-		var th = $(this);
-		$.ajax({
-			type: "POST",
-			url: "mail.php", //Change
-			data: th.serialize()
-		}).done(function() {
-      $('.contact').find('.form').addClass('is-hidden');
-      $('.contact').find('.form__reply').addClass('is-visible');
-			setTimeout(function() {
-				// Done Functions
-        $('.contact').find('.form__reply').removeClass('is-visible');
-        $('.contact').find('.form').delay(300).removeClass('is-hidden');
-				th.trigger("reset");
-			}, 5000);
-		});
-		return false;
-	});
+  $("#contact-form").submit(function (event) {
+    event.preventDefault();
+    var formData = {
+      name: $("#name").val(),
+      email: $("#email").val(),
+      message: $("#message").val(),
+    };
+  
+    fetch("/.netlify/functions/sendMail", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert("Email sent successfully!");
+        } else {
+          alert("Error sending email: " + data.error);
+        }
+      })
+      .catch((error) => {
+        alert("Request failed: " + error);
+      });
+  });
+  
   // --------------------------------------------- //
   // Contact Form End
   // --------------------------------------------- //
