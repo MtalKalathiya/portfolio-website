@@ -773,28 +773,6 @@
                   </div>
                 </div>
               </form>
-              <script>
-                document.getElementById("contact-form").addEventListener("submit", async function (event) {
-                  event.preventDefault();
-              
-                  const formData = {
-                    name: event.target["Name"].value,
-                    company: event.target["Company"].value,
-                    email: event.target["E-mail"].value,
-                    phone: event.target["Phone"].value,
-                    message: event.target["Message"].value,
-                  };
-              
-                  const response = await fetch("/.netlify/functions/sendMail", {
-                    method: "POST",
-                    body: JSON.stringify(formData),
-                    headers: { "Content-Type": "application/json" },
-                  });
-              
-                  const result = await response.json();
-                  alert(result.message || result.error);
-                });
-              </script>
               <!-- Contact Form End -->
 
             </div>

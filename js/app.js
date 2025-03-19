@@ -307,28 +307,28 @@ $(function() {
   // --------------------------------------------- //
   $("#contact-form").submit(function (event) {
     event.preventDefault();
+
     var formData = {
-      name: $("#name").val(),
-      email: $("#email").val(),
-      message: $("#message").val(),
+      name: $("input[name='Name']").val(),
+      company: $("input[name='Company']").val(),
+      email: $("input[name='E-mail']").val(),
+      phone: $("input[name='Phone']").val(),
+      message: $("textarea[name='Message']").val(),
     };
-  
+
     fetch("/.netlify/functions/sendMail", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          alert("Email sent successfully!");
-        } else {
-          alert("Error sending email: " + data.error);
-        }
+        alert(data.message || data.error);
       })
       .catch((error) => {
         alert("Request failed: " + error);
       });
-  });
+});
   
   // --------------------------------------------- //
   // Contact Form End

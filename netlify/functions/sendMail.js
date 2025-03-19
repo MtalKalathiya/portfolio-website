@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 exports.handler = async (event) => {
   try {
     // Parse the incoming form data
-    const { name, email, message } = JSON.parse(event.body);
+    const { name, company, email, phone, message } = JSON.parse(event.body);
 
     // Set up email transporter
     let transporter = nodemailer.createTransport({
@@ -19,7 +19,12 @@ exports.handler = async (event) => {
       from: email,
       to: process.env.EMAIL_USER,
       subject: `New Contact Form Message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      text: `
+        Name: ${name}
+        Company: ${company || "N/A"}
+        Email: ${email}
+        Phone: ${phone}
+        Message: ${message}`,
     };
 
     // Send email
