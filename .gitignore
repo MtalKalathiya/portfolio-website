@@ -14,7 +14,8 @@ yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Netlify and environment variables
+# Vercel and environment variables
+.vercel/
 .netlify/
 .env
 .env.local
