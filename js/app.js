@@ -316,7 +316,7 @@ $(function() {
       message: $("textarea[name='Message']").val(),
     };
 
-    fetch("/api/sendMail", {
+    fetch("/.netlify/functions/sendMail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
